@@ -25,6 +25,7 @@ import java.util.Properties;
 import javax.servlet.Servlet;
 import javax.servlet.http.HttpServlet;
 
+import org.killbill.billing.entitlement.plugin.api.EntitlementPluginApi;
 import org.killbill.billing.invoice.plugin.api.InvoicePluginApi;
 import org.killbill.billing.osgi.api.Healthcheck;
 import org.killbill.billing.osgi.api.OSGIPluginProperties;
@@ -70,6 +71,9 @@ public class InvgrpActivator extends KillbillActivatorBase {
         final PaymentPluginApi paymentPluginApi = new InvgrpPaymentPluginApi();
         registerPaymentPluginApi(context, paymentPluginApi);
 
+        final EntitlementPluginApi entitlementPluginApi = new InvgrpEntitlementPluginApi(killbillAPI, clock);
+        registerEntitlementPluginApi(context, entitlementPluginApi);
+
         // Expose metrics (optional)
         metricsGenerator = new MetricsGeneratorExample(metricRegistry);
         metricsGenerator.start();
@@ -92,6 +96,7 @@ public class InvgrpActivator extends KillbillActivatorBase {
 
         registerHandlers();
     }
+
 
     @Override
     public void stop(final BundleContext context) throws Exception {
@@ -118,12 +123,18 @@ public class InvgrpActivator extends KillbillActivatorBase {
         props.put(OSGIPluginProperties.PLUGIN_NAME_PROP, PLUGIN_NAME);
         registrar.registerService(context, PaymentPluginApi.class, api, props);
     }
+
     private void registerInvoicePluginApi(final BundleContext context, final InvoicePluginApi api) {
         final Hashtable<String, String> props = new Hashtable<String, String>();
         props.put(OSGIPluginProperties.PLUGIN_NAME_PROP, PLUGIN_NAME);
         registrar.registerService(context, InvoicePluginApi.class, api, props);
     }
 
+    private void registerEntitlementPluginApi(final BundleContext context, final EntitlementPluginApi api) {
+        final Hashtable<String, String> props = new Hashtable<String, String>();
+        props.put(OSGIPluginProperties.PLUGIN_NAME_PROP, PLUGIN_NAME);
+        registrar.registerService(context, EntitlementPluginApi.class, api, props);
+    }
 
     private void registerHealthcheck(final BundleContext context, final Healthcheck healthcheck) {
         final Hashtable<String, String> props = new Hashtable<String, String>();
