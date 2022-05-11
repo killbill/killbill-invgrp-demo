@@ -33,6 +33,7 @@ import org.killbill.billing.osgi.api.OSGIPluginProperties;
 import org.killbill.billing.osgi.libs.killbill.KillbillActivatorBase;
 import org.killbill.billing.osgi.libs.killbill.OSGIKillbillEventDispatcher;
 import org.killbill.billing.osgi.libs.killbill.OSGIKillbillEventDispatcher.OSGIFrameworkEventHandler;
+import org.killbill.billing.payment.plugin.api.PaymentPluginApi;
 import org.killbill.billing.plugin.api.notification.PluginConfigurationEventHandler;
 import org.killbill.billing.plugin.core.config.PluginEnvironmentConfig;
 import org.killbill.billing.plugin.core.resources.jooby.PluginApp;
@@ -73,6 +74,9 @@ public class InvgrpActivator extends KillbillActivatorBase {
 
         final EntitlementPluginApi entitlementPluginApi = new InvgrpEntitlementPluginApi(killbillAPI, clock);
         registerEntitlementPluginApi(context, entitlementPluginApi);
+
+        final PaymentPluginApi paymentPluginApi = new InvgrpPaymentPluginApi();
+        registerPaymentPluginApi(context, paymentPluginApi);
 
         // Expose metrics (optional)
         metricsGenerator = new MetricsGeneratorExample(metricRegistry);
@@ -122,6 +126,12 @@ public class InvgrpActivator extends KillbillActivatorBase {
         final Hashtable<String, String> props = new Hashtable<String, String>();
         props.put(OSGIPluginProperties.PLUGIN_NAME_PROP, PLUGIN_NAME);
         registrar.registerService(context, PaymentControlPluginApi.class, api, props);
+    }
+
+    private void registerPaymentPluginApi(final BundleContext context, final PaymentPluginApi api) {
+        final Hashtable<String, String> props = new Hashtable<String, String>();
+        props.put(OSGIPluginProperties.PLUGIN_NAME_PROP, PLUGIN_NAME);
+        registrar.registerService(context, PaymentPluginApi.class, api, props);
     }
 
     private void registerInvoicePluginApi(final BundleContext context, final InvoicePluginApi api) {

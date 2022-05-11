@@ -51,10 +51,10 @@ public class InvgrpPaymentControlPluginApi implements PaymentControlPluginApi {
             return new PluginPriorPaymentControlResult(false);
         }
 
-        logger.info("Adjusting payment method for payment {}: invoice={}, pmId={}",
-                    context.getPaymentId(), invoice.getId(), pmId);
+        logger.info("Adjusting payment method for payment external key = {}: invoice={}, pmId={}",
+                    context.getPaymentExternalKey(), invoice.getId(), pmId);
 
-        return new PluginPriorPaymentControlResult(false, null, null, pmId, null, Collections.emptyList());
+        return new PluginPriorPaymentControlResult(false, null, null, pmId, null, null);
     }
 
     @Override
