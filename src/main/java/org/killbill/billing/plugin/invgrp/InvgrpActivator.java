@@ -25,6 +25,7 @@ import java.util.Properties;
 import javax.servlet.Servlet;
 import javax.servlet.http.HttpServlet;
 
+import org.killbill.billing.control.plugin.api.PaymentControlPluginApi;
 import org.killbill.billing.entitlement.plugin.api.EntitlementPluginApi;
 import org.killbill.billing.invoice.plugin.api.InvoicePluginApi;
 import org.killbill.billing.osgi.api.Healthcheck;
@@ -32,7 +33,6 @@ import org.killbill.billing.osgi.api.OSGIPluginProperties;
 import org.killbill.billing.osgi.libs.killbill.KillbillActivatorBase;
 import org.killbill.billing.osgi.libs.killbill.OSGIKillbillEventDispatcher;
 import org.killbill.billing.osgi.libs.killbill.OSGIKillbillEventDispatcher.OSGIFrameworkEventHandler;
-import org.killbill.billing.payment.plugin.api.PaymentPluginApi;
 import org.killbill.billing.plugin.api.notification.PluginConfigurationEventHandler;
 import org.killbill.billing.plugin.core.config.PluginEnvironmentConfig;
 import org.killbill.billing.plugin.core.resources.jooby.PluginApp;
@@ -68,8 +68,8 @@ public class InvgrpActivator extends KillbillActivatorBase {
         registerInvoicePluginApi(context, invoicePluginApi);
 
         // As an example, this plugin registers a PaymentPluginApi (this could be changed to any other plugin api)
-        final PaymentPluginApi paymentPluginApi = new InvgrpPaymentPluginApi();
-        registerPaymentPluginApi(context, paymentPluginApi);
+        final PaymentControlPluginApi paymentControlPluginApi = new InvgrpPaymentControlPluginApi(killbillAPI);
+        registerPaymentControlPluginApi(context, paymentControlPluginApi);
 
         final EntitlementPluginApi entitlementPluginApi = new InvgrpEntitlementPluginApi(killbillAPI, clock);
         registerEntitlementPluginApi(context, entitlementPluginApi);
@@ -118,10 +118,10 @@ public class InvgrpActivator extends KillbillActivatorBase {
         registrar.registerService(context, Servlet.class, servlet, props);
     }
 
-    private void registerPaymentPluginApi(final BundleContext context, final PaymentPluginApi api) {
+    private void registerPaymentControlPluginApi(final BundleContext context, final PaymentControlPluginApi api) {
         final Hashtable<String, String> props = new Hashtable<String, String>();
         props.put(OSGIPluginProperties.PLUGIN_NAME_PROP, PLUGIN_NAME);
-        registrar.registerService(context, PaymentPluginApi.class, api, props);
+        registrar.registerService(context, PaymentControlPluginApi.class, api, props);
     }
 
     private void registerInvoicePluginApi(final BundleContext context, final InvoicePluginApi api) {

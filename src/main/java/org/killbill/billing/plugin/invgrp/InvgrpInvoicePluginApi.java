@@ -49,7 +49,7 @@ public class InvgrpInvoicePluginApi implements InvoicePluginApi {
             final List<InvoiceGroup> tmp = new ArrayList<>();
             groups.values()
                   .stream()
-                  .forEach(v -> tmp.add(new TestInvoiceGroup(v)));
+                  .forEach(v -> tmp.add(new PluginInvoiceGroup(v)));
             return tmp;
         }
 
@@ -58,11 +58,11 @@ public class InvgrpInvoicePluginApi implements InvoicePluginApi {
             return invoiceGroups;
         }
 
-        private static class TestInvoiceGroup implements InvoiceGroup {
+        private static class PluginInvoiceGroup implements InvoiceGroup {
 
             private final List<UUID> invoiceItemIds;
 
-            public TestInvoiceGroup(final List<UUID> invoiceItemIds) {
+            public PluginInvoiceGroup(final List<UUID> invoiceItemIds) {
                 this.invoiceItemIds = invoiceItemIds;
             }
 

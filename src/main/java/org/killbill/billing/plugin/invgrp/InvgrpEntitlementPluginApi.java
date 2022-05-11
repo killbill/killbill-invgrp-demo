@@ -28,9 +28,11 @@ import org.killbill.billing.util.customfield.CustomField;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import static org.killbill.billing.entitlement.plugin.api.OperationType.CREATE_SHOPPING_CART_SUBSCRIPTIONS;
+
 public class InvgrpEntitlementPluginApi implements EntitlementPluginApi {
 
-    private static final String PM_ID = "PM_ID";
+    public static final String PM_ID = "PM_ID";
     private static final String USER = "admin";
     private static final String PWD = "password";
 
@@ -51,7 +53,9 @@ public class InvgrpEntitlementPluginApi implements EntitlementPluginApi {
 
     @Override
     public OnSuccessEntitlementResult onSuccessCall(final EntitlementContext context, final Iterable<PluginProperty> properties) throws EntitlementPluginApiException {
-        if (context.getOperationType() == OperationType.CREATE_SUBSCRIPTION) {
+        if (context.getOperationType() == OperationType.CREATE_SUBSCRIPTION ||
+            context.getOperationType() == OperationType.CREATE_SUBSCRIPTIONS_WITH_AO ||
+            context.getOperationType() == OperationType.CREATE_SHOPPING_CART_SUBSCRIPTIONS) {
 
             logger.info("OnSuccess call for CREATE_SUBSCRIPTION");
 
