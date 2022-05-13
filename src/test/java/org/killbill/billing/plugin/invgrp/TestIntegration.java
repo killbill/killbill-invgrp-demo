@@ -1,3 +1,10 @@
+/*
+ * Copyright 2022 The Billing Project, LLC - All Rights Reserved
+ *
+ * Unauthorized copying of this file, via any medium is strictly prohibited
+ * Proprietary and confidential
+ */
+
 package org.killbill.billing.plugin.invgrp;
 
 import java.io.File;
