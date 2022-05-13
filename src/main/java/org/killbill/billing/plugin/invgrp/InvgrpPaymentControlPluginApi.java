@@ -39,6 +39,9 @@ public class InvgrpPaymentControlPluginApi implements PaymentControlPluginApi {
 
     @Override
     public PriorPaymentControlResult priorCall(final PaymentControlContext context, final Iterable<PluginProperty> properties) throws PaymentControlApiException {
+        //
+        // Adjust the PM to match the per-subscription setting
+        //
         final Invoice invoice = getInvoice(properties, context);
         if (invoice == null) {
             logger.warn("No invoice for payment {}", context.getPaymentId());

@@ -28,8 +28,8 @@
     <artifactId>invgrp-plugin</artifactId>
     <version>1.0.1-SNAPSHOT</version>
     <packaging>bundle</packaging>
-    <name>Kill Bill OSGI Hello World bundle</name>
-    <description>Kill Bill Hello World plugin</description>
+    <name>Kill Bill OSGI Invoice Grouping Plugin</name>
+    <description>Kill Bill OSGI Invoice Grouping Plugin</description>
     <url>http://github.com/killbill/killbill-invgrp-java-plugin</url>
     <scm>
         <connection>scm:git:git://github.com/killbill/killbill-invgrp-java-plugin.git</connection>

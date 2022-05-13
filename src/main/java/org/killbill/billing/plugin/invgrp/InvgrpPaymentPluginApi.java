@@ -36,6 +36,7 @@ public class InvgrpPaymentPluginApi implements PaymentPluginApi {
 
     @Override
     public PaymentTransactionInfoPlugin purchasePayment(final UUID kbAccountId, final UUID kbPaymentId, final UUID kbTransactionId, final UUID kbPaymentMethodId, final BigDecimal amount, final Currency currency, final Iterable<PluginProperty> properties, final CallContext context) throws PaymentPluginApiException {
+        // Default implementation for the TestIntegration
         return new PluginPaymentTransactionInfoPlugin(kbPaymentId, kbTransactionId, TransactionType.PURCHASE, amount, currency, PaymentPluginStatus.PROCESSED, null, null, null, null, new DateTime(), new DateTime(), Collections.emptyList());
     }
 

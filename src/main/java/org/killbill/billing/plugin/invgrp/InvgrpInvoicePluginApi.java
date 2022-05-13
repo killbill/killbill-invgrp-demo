@@ -76,6 +76,7 @@ public class InvgrpInvoicePluginApi implements InvoicePluginApi {
     @Override
     public InvoiceGroupingResult getInvoiceGrouping(final Invoice invoice, final boolean dryRun, final Iterable<PluginProperty> properties, final CallContext context) {
 
+        // Split the input invoice items so that each subscription ends up on its own invoice
         final Map<UUID, List<UUID>> groups = new HashMap<UUID, List<UUID>>();
         for (InvoiceItem ii : invoice.getInvoiceItems()) {
             final UUID groupId = findGroup(invoice, ii);

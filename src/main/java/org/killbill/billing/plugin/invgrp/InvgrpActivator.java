@@ -68,13 +68,13 @@ public class InvgrpActivator extends KillbillActivatorBase {
         final InvoicePluginApi invoicePluginApi = new InvgrpInvoicePluginApi();
         registerInvoicePluginApi(context, invoicePluginApi);
 
-        // As an example, this plugin registers a PaymentPluginApi (this could be changed to any other plugin api)
         final PaymentControlPluginApi paymentControlPluginApi = new InvgrpPaymentControlPluginApi(killbillAPI);
         registerPaymentControlPluginApi(context, paymentControlPluginApi);
 
         final EntitlementPluginApi entitlementPluginApi = new InvgrpEntitlementPluginApi(killbillAPI, clock);
         registerEntitlementPluginApi(context, entitlementPluginApi);
 
+        // This is not required for the logic of the plugin but useful to run the integration test
         final PaymentPluginApi paymentPluginApi = new InvgrpPaymentPluginApi();
         registerPaymentPluginApi(context, paymentPluginApi);
 

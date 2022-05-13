@@ -57,6 +57,9 @@ public class InvgrpEntitlementPluginApi implements EntitlementPluginApi {
             context.getOperationType() == OperationType.CREATE_SUBSCRIPTIONS_WITH_AO ||
             context.getOperationType() == OperationType.CREATE_SHOPPING_CART_SUBSCRIPTIONS) {
 
+            //
+            // Creates the custom field to map the subscription for the provided payment method
+            //
             logger.info("OnSuccess call for CREATE_SUBSCRIPTION");
 
             final UUID subId = getSubscriptionId(context);
