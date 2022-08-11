@@ -16,6 +16,7 @@ import java.util.UUID;
 
 import org.killbill.billing.invoice.api.Invoice;
 import org.killbill.billing.invoice.api.InvoiceItem;
+import org.killbill.billing.invoice.plugin.api.AdditionalItemsResult;
 import org.killbill.billing.invoice.plugin.api.InvoiceContext;
 import org.killbill.billing.invoice.plugin.api.InvoiceGroup;
 import org.killbill.billing.invoice.plugin.api.InvoiceGroupingResult;
@@ -24,6 +25,7 @@ import org.killbill.billing.invoice.plugin.api.OnFailureInvoiceResult;
 import org.killbill.billing.invoice.plugin.api.OnSuccessInvoiceResult;
 import org.killbill.billing.invoice.plugin.api.PriorInvoiceResult;
 import org.killbill.billing.payment.api.PluginProperty;
+import org.killbill.billing.plugin.api.invoice.PluginAdditionalItemsResult;
 import org.killbill.billing.plugin.api.invoice.PluginOnFailureInvoiceResult;
 import org.killbill.billing.plugin.api.invoice.PluginOnSuccessInvoiceResult;
 import org.killbill.billing.plugin.api.invoice.PluginPriorInvoiceResult;
@@ -40,8 +42,8 @@ public class InvgrpInvoicePluginApi implements InvoicePluginApi {
     }
 
     @Override
-    public List<InvoiceItem> getAdditionalInvoiceItems(final Invoice invoice, final boolean dryRun, final Iterable<PluginProperty> properties, final CallContext context) {
-        return Collections.emptyList();
+    public AdditionalItemsResult getAdditionalInvoiceItems(final Invoice invoice, final boolean dryRun, final Iterable<PluginProperty> properties, final CallContext context) {
+        return new PluginAdditionalItemsResult();
     }
 
     private static class InvgrpInvoiceGroupingResult implements InvoiceGroupingResult {
@@ -63,6 +65,11 @@ public class InvgrpInvoicePluginApi implements InvoicePluginApi {
         @Override
         public List<InvoiceGroup> getInvoiceGroups() {
             return invoiceGroups;
+        }
+
+        @Override
+        public Iterable<PluginProperty> getAdjustedPluginProperties() {
+            return null;
         }
 
         private static class PluginInvoiceGroup implements InvoiceGroup {

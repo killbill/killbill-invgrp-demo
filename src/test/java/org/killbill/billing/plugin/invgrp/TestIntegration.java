@@ -16,6 +16,7 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.killbill.billing.catalog.api.BillingPeriod;
 import org.killbill.billing.catalog.api.Currency;
@@ -163,7 +164,7 @@ public class TestIntegration {
 
         // Trigger an invoice run
         final LocalDate targetDate = new LocalDate();
-        final Invoices invoices = invoiceApi.createFutureInvoiceGroup(account.getAccountId(), targetDate, requestOptions.extend()
+        final Invoices invoices = invoiceApi.createFutureInvoiceGroup(account.getAccountId(), targetDate, null, requestOptions.extend()
                                                                                                                         .withQueryParamsForFollow(ImmutableMultimap.of(JaxrsResource.QUERY_ACCOUNT_ID, account.getAccountId().toString()))
                                                                                                                         .withFollowLocation(true).build());
         assertEquals(invoices.size(), NB_SUBSCRIPTIONS);
@@ -176,7 +177,7 @@ public class TestIntegration {
 
         // Trigger another invoice run a month later and verify we split again the run into NB_SUBSCRIPTIONS invoices and separate payments
         final LocalDate targetDate2 = targetDate.plusMonths(1);
-        final Invoices invoices2 = invoiceApi.createFutureInvoiceGroup(account.getAccountId(), targetDate2, requestOptions.extend()
+        final Invoices invoices2 = invoiceApi.createFutureInvoiceGroup(account.getAccountId(), targetDate2, null, requestOptions.extend()
                                                                                                                              .withQueryParamsForFollow(ImmutableMultimap.of(JaxrsResource.QUERY_ACCOUNT_ID, account.getAccountId().toString()))
                                                                                                                           .withFollowLocation(true).build());
         assertEquals(invoices2.size(), NB_SUBSCRIPTIONS);
@@ -277,7 +278,7 @@ public class TestIntegration {
         input.setProductCategory(productCategory);
         input.setBillingPeriod(billingPeriod);
         input.setPriceList(PriceListSet.DEFAULT_PRICELIST_NAME);
-        final Subscription subscription = subscriptionApi.createSubscription(input, null, null, true, false, false, true, DEFAULT_WAIT_COMPLETION_TIMEOUT_SEC, properties, requestOptions);
+        final Subscription subscription = subscriptionApi.createSubscription(input, (DateTime) null, null, true, false, false, true, DEFAULT_WAIT_COMPLETION_TIMEOUT_SEC, properties, requestOptions);
         return subscription;
     }
 
