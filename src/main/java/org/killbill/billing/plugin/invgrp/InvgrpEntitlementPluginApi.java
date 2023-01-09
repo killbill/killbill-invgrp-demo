@@ -132,7 +132,7 @@ public class InvgrpEntitlementPluginApi implements EntitlementPluginApi {
             if (bundleSpec.getEntitlementSpecifier().iterator().hasNext()) {
                 final EntitlementSpecifier spec = bundleSpec.getEntitlementSpecifier().iterator().next();
                 try {
-                    final Subscription sub = killbillAPI.getSubscriptionApi().getSubscriptionForExternalKey(spec.getExternalKey(), context);
+                    final Subscription sub = killbillAPI.getSubscriptionApi().getSubscriptionForExternalKey(spec.getExternalKey(), false, context);
                     return sub.getId();
                 } catch (final SubscriptionApiException e) {
                     logger.warn("Failed to get subscription for key {}", spec.getExternalKey(), e);
