@@ -18,6 +18,6 @@ public class InvgrpHealthcheck implements Healthcheck {
 
     @Override
     public HealthStatus getHealthStatus(@Nullable final Tenant tenant, @Nullable final Map properties) {
-        return HealthStatus.healthy();
+        return HealthStatus.healthy("Invgrp OK");
     }
 }
