@@ -165,7 +165,7 @@ public class TestIntegration {
         // Trigger an invoice run
         final LocalDate targetDate = new LocalDate();
         final Invoices invoices = invoiceApi.createFutureInvoiceGroup(account.getAccountId(), targetDate, null, requestOptions.extend()
-                                                                                                                        .withQueryParamsForFollow(ImmutableMultimap.of(JaxrsResource.QUERY_ACCOUNT_ID, account.getAccountId().toString()))
+  																													.withQueryParamsForFollow(Map.of(JaxrsResource.QUERY_ACCOUNT_ID, List.of(account.getAccountId().toString())))
                                                                                                                         .withFollowLocation(true).build());
         assertEquals(invoices.size(), NB_SUBSCRIPTIONS);
 
@@ -178,7 +178,7 @@ public class TestIntegration {
         // Trigger another invoice run a month later and verify we split again the run into NB_SUBSCRIPTIONS invoices and separate payments
         final LocalDate targetDate2 = targetDate.plusMonths(1);
         final Invoices invoices2 = invoiceApi.createFutureInvoiceGroup(account.getAccountId(), targetDate2, null, requestOptions.extend()
-                                                                                                                             .withQueryParamsForFollow(ImmutableMultimap.of(JaxrsResource.QUERY_ACCOUNT_ID, account.getAccountId().toString()))
+                                                                                                                             .withQueryParamsForFollow(Map.of(JaxrsResource.QUERY_ACCOUNT_ID, List.of(account.getAccountId().toString())))
                                                                                                                           .withFollowLocation(true).build());
         assertEquals(invoices2.size(), NB_SUBSCRIPTIONS);
 

@@ -42,7 +42,7 @@ public class InvgrpInvoicePluginApi implements InvoicePluginApi {
     }
 
     @Override
-    public AdditionalItemsResult getAdditionalInvoiceItems(final Invoice invoice, final boolean dryRun, final Iterable<PluginProperty> properties, final CallContext context) {
+    public AdditionalItemsResult getAdditionalInvoiceItems(final Invoice invoice, final boolean dryRun, final Iterable<PluginProperty> properties, final InvoiceContext context) {
         return new PluginAdditionalItemsResult();
     }
 
@@ -88,7 +88,7 @@ public class InvgrpInvoicePluginApi implements InvoicePluginApi {
     }
 
     @Override
-    public InvoiceGroupingResult getInvoiceGrouping(final Invoice invoice, final boolean dryRun, final Iterable<PluginProperty> properties, final CallContext context) {
+    public InvoiceGroupingResult getInvoiceGrouping(final Invoice invoice, final boolean dryRun, final Iterable<PluginProperty> properties, final InvoiceContext context) {
 
         // Split the input invoice items so that each subscription ends up on its own invoice
         final Map<UUID, List<UUID>> groups = new HashMap<UUID, List<UUID>>();
