@@ -19,6 +19,10 @@ env:
 jobs:
   release:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+            docker-compose-file: 'docker-compose.ci.mysql.yml'    
     steps:
       - name: Checkout code
         if: github.event.inputs.perform_version == ''
@@ -77,7 +81,7 @@ jobs:
           mkdir -p /var/tmp/tomcat_logs
           chmod ugo+rwx /var/tmp/tomcat_logs
           cd docker
-          docker-compose -p it -f docker-compose.ci.mysql.yml up --no-start
+          docker-compose -p it -f ${{ matrix.docker-compose-file }} up --no-start
           docker start it_db_1
       - name: Wait for MySQL
         if: ${{ matrix.docker-compose-file == 'docker-compose.ci.mysql.yml' }}
