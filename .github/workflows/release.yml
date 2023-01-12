@@ -72,6 +72,27 @@ jobs:
           server-password: OSSRH_PASS
           gpg-private-key: ${{ secrets.GPG_SIGNING_KEY }}
           gpg-passphrase: GPG_PASSPHRASE
+      - name: Start stack
+        run: |
+          mkdir -p /var/tmp/tomcat_logs
+          chmod ugo+rwx /var/tmp/tomcat_logs
+          cd docker
+          docker-compose -p it -f ${{ matrix.docker-compose-file }} up --no-start
+          docker start it_db_1
+      - name: Wait for MySQL
+        if: ${{ matrix.docker-compose-file == 'docker-compose.ci.mysql.yml' }}
+        run: |
+          set +e
+          count=0
+          until mysqladmin ping -h 127.0.0.1 -u root --password=root --silent; do
+            if [[ "$count" == "25" ]]; then
+              exit 1
+            fi
+            (( count++ ))
+            printf '.'
+            sleep 5
+          done
+          set -e          
       - name: Release artifacts
         if: github.event.inputs.perform_version == ''
         env:
