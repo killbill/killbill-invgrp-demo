@@ -50,6 +50,8 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableMultimap;
@@ -310,7 +312,7 @@ public class TestIntegration {
         return fetch ? catalogApi.getCatalogXml(null, null, requestOptions) : null;
     }
 
-    private Tenant createTenant(final String apiKey, final String apiSecret, final boolean useGlobalDefault) throws KillBillClientException {
+    private Tenant createTenant(final String apiKey, final String apiSecret, final boolean useGlobalDefault) throws KillBillClientException, JsonProcessingException {
         loginTenant(apiKey, apiSecret);
         final Tenant tenant = new Tenant();
         tenant.setApiKey(apiKey);
@@ -323,6 +325,14 @@ public class TestIntegration {
 
         final Tenant createdTenant = tenantApi.createTenant(tenant, useGlobalDefault, requestOptions);
         createdTenant.setApiSecret(apiSecret);
+
+        // Add the per-tenant property as per README
+        final ObjectMapper mapper = new ObjectMapper();
+        final HashMap<String, String> perTenantProperties = new HashMap<>();
+        perTenantProperties.put("org.killbill.payment.invoice.plugin", "invgrp-plugin");
+        perTenantProperties.put("org.killbill.payment.method.overwrite", "true");
+        final String perTenantConfig = mapper.writeValueAsString(perTenantProperties);
+        tenantApi.uploadPerTenantConfiguration(perTenantConfig, requestOptions);
         return createdTenant;
     }
 
