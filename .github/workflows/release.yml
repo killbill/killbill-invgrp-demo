@@ -11,6 +11,10 @@ on:
         description: 'tag to (re-)perform (in case of release:perform failure)'
         required: false
         default: ''
+      maven_version:
+        description: The Maven version used for builds
+        required: false
+        default: '3.8.4'        
 
 env:
   MAVEN_FLAGS: "-B --no-transfer-progress"
@@ -74,6 +78,15 @@ jobs:
           server-password: OSSRH_PASS
           gpg-private-key: ${{ secrets.GPG_SIGNING_KEY }}
           gpg-passphrase: GPG_PASSPHRASE
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.6.0
+          rubygems: latest
+          bundler-cache: true
+      - name: Install kpm
+        run: |
+          gem install kpm
       - name: Start stack
         run: |
           mkdir -p /var/tmp/tomcat_logs
