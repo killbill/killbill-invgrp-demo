@@ -11,8 +11,6 @@ on:
         description: 'tag to (re-)perform (in case of release:perform failure)'
         required: false
         default: ''
-  workflow_call:
-    inputs:
       maven_version:
         description: The Maven version used for builds
         required: false
