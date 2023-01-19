@@ -85,9 +85,6 @@ jobs:
           gem install kpm
       - name: Set up Maven
         run: mvn --errors --batch-mode --show-version wrapper:wrapper "-Dmaven=${{ inputs.maven_version }}"
-      - name: Build plugin
-        run: |
-          ./mvnw --errors --batch-mode --show-version ${{ inputs.maven_args }} ${{ inputs.maven_goal }}           
       - name: Start stack
         run: |
           mkdir -p /var/tmp/tomcat_logs
