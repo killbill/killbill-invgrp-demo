@@ -17,6 +17,8 @@ env:
   MAVEN_FLAGS: "-B --no-transfer-progress"
   MAVEN_OPTS: "-Xmx2G -XX:+ExitOnOutOfMemoryError -Dmaven.wagon.rto=60000 -Dmaven.wagon.httpconnectionManager.ttlSeconds=25 -Dmaven.wagon.http.retryHandler.count=3"
   MAVEN_VERSION: 3.8.4
+  MAVEN_ARGS: "-Dmaven.test.redirectTestOutputToFile=true -Dcheck.skip-dependency=true -Dcheck.skip-dependency-scope=true -Dcheck.skip-dependency-versions=true -Dcheck.skip-duplicate-finder=true -Dcheck.skip-enforcer=true -Dcheck.skip-rat=true -Dcheck.skip-spotbugs=true -DskipTests=true"
+  MAVEN_GOAL: "clean package"
   KB_ADDRESS: 127.0.0.1
   KB_PORT: 8080
 
@@ -89,7 +91,7 @@ jobs:
         run: mvn --errors --batch-mode --show-version wrapper:wrapper "-Dmaven=${MAVEN_VERSION}"
       - name: Build plugin
         run: |
-          ./mvnw --errors --batch-mode --show-version ${{ inputs.maven_args }} ${{ inputs.maven_goal }}        
+          ./mvnw --errors --batch-mode --show-version ${MAVEN_ARGS} ${MAVEN_GOAL}    
       - name: Start stack
         run: |
           mkdir -p /var/tmp/tomcat_logs
