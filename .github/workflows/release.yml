@@ -137,7 +137,18 @@ jobs:
                -H 'Content-Type: application/json' \
                -H 'X-Killbill-CreatedBy: GitHub' \
                -d '{"apiKey": "bob", "apiSecret": "lazar"}' \
-               "http://${KB_ADDRESS}:${KB_PORT}/1.0/kb/tenants"            
+               "http://${KB_ADDRESS}:${KB_PORT}/1.0/kb/tenants"
+      - name: Verify plugin has started
+        run: |
+          count=0
+          until [[ "$(curl -s -uadmin:password http://${KB_ADDRESS}:${KB_PORT}/1.0/kb/nodesInfo | jq -r '.[].pluginsInfo[] | select(.pluginName == "${PLUGIN_NAME}-plugin").state')" == "RUNNING" ]]; do
+            if [[ "$count" == "5" ]]; then
+              curl -uadmin:password http://${KB_ADDRESS}:${KB_PORT}/1.0/kb/nodesInfo | jq .
+              exit 64
+            fi
+            count=$(( count + 1 ))
+            sleep 1
+          done                  
       - name: Release artifacts
         if: github.event.inputs.perform_version == ''
         env:
