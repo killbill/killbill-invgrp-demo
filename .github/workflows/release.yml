@@ -11,17 +11,14 @@ on:
         description: 'tag to (re-)perform (in case of release:perform failure)'
         required: false
         default: ''
-      maven_version:
-        description: The Maven version used for builds
-        required: false
-        default: '3.8.4'
-        type: string         
+  
 
 env:
   MAVEN_FLAGS: "-B --no-transfer-progress"
   MAVEN_OPTS: "-Xmx2G -XX:+ExitOnOutOfMemoryError -Dmaven.wagon.rto=60000 -Dmaven.wagon.httpconnectionManager.ttlSeconds=25 -Dmaven.wagon.http.retryHandler.count=3"
+  MAVEN_VERSION: 3.8.4
   KB_ADDRESS: 127.0.0.1
-  KB_PORT: 8080  
+  KB_PORT: 8080
 
 jobs:
   release:
@@ -89,7 +86,7 @@ jobs:
         run: |
           gem install kpm
       - name: Set up Maven
-        run: mvn --errors --batch-mode --show-version wrapper:wrapper "-Dmaven=${{ inputs.maven_version }}"
+        run: mvn --errors --batch-mode --show-version wrapper:wrapper "-Dmaven=${MAVEN_VERSION}"
       - name: Start stack
         run: |
           mkdir -p /var/tmp/tomcat_logs
