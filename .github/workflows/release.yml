@@ -159,3 +159,44 @@ jobs:
           echo "scm.url=scm\:git\:git@github.com\:${GITHUB_REPOSITORY}.git" > release.properties
           echo "scm.tag=${{ github.event.inputs.perform_version }}" >> release.properties
           mvn ${MAVEN_FLAGS} release:perform
+      - name: Debugging after failure
+        if: failure()
+        run: |
+          echo "::group::killbill healthcheck"
+          curl --connect-timeout 10 --max-time 30 -v http://${KB_ADDRESS}:${KB_PORT}/1.0/healthcheck || true
+          echo "::endgroup::"
+          echo "::group::hostname"
+          hostname
+          echo "::endgroup::"
+          echo "::group::netstat -tulpn"
+          sudo netstat -tulpn
+          echo "::endgroup::"
+          echo "::group::docker network ls"
+          docker network ls
+          echo "::endgroup::"
+          echo "::group::docker ps -a"
+          docker ps -a
+          echo "::endgroup::"
+          echo "::group::killbill env"
+          docker exec it_killbill_1 env || true
+          echo "::endgroup::"
+          echo "::group::db env"
+          docker exec it_db_1 env || true
+          echo "::endgroup::"
+          echo "::group::killbill logs"
+          docker logs -t --details it_killbill_1 || true
+          # To avoid EACCES errors for the upload
+          docker stop it_killbill_1 || true
+          sudo chmod -R ugo+rwx /var/tmp/tomcat_logs
+          echo "::endgroup::"
+          echo "::group::db logs"
+          docker logs -t --details it_db_1 || true
+          docker stop it_db_1 || true
+          echo "::endgroup::"
+      - name: Upload logs on failure
+        uses: actions/upload-artifact@v3.1.1
+        if: failure()
+        with:
+          name: failure-tomcat_logs-${{ matrix.database-adapter }}
+          path: /var/tmp/tomcat_logs
+          retention-days: 3
