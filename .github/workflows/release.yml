@@ -141,7 +141,7 @@ jobs:
       - name: Verify plugin has started
         run: |
           count=0
-          until [[ "$(curl -s -uadmin:password http://${KB_ADDRESS}:${KB_PORT}/1.0/kb/nodesInfo | jq -r '.[].pluginsInfo[] | select(.pluginName == "${PLUGIN_NAME} -plugin").state')" == "RUNNING" ]]; do
+          until [[ "$(curl -s -uadmin:password http://${KB_ADDRESS}:${KB_PORT}/1.0/kb/nodesInfo | jq -r '.[].pluginsInfo[] | select(.pluginName == "${PLUGIN_NAME}-plugin").state')" == "RUNNING" ]]; do
             if [[ "$count" == "5" ]]; then
               curl -uadmin:password http://${KB_ADDRESS}:${KB_PORT}/1.0/kb/nodesInfo | jq .
               exit 64
