@@ -18,15 +18,15 @@
     <packaging>bundle</packaging>
     <name>Kill Bill OSGI Invoice Grouping Plugin</name>
     <description>Kill Bill OSGI Invoice Grouping Plugin</description>
-    <url>http://github.com/killbill/killbill-invgrp-java-plugin</url>
+    <url>http://github.com/killbill/killbill-invgrp-demo</url>
     <scm>
-        <connection>scm:git:git://github.com/killbill/killbill-invgrp-java-plugin.git</connection>
-        <developerConnection>scm:git:git@github.com:killbill/killbill-invgrp-java-plugin.git</developerConnection>
-        <url>http://github.com/killbill/killbill-invgrp-java-plugin/tree/master</url>
+        <connection>scm:git:git://github.com/killbill/killbill-invgrp-demo.git</connection>
+        <developerConnection>scm:git:git@github.com:killbill/killbill-invgrp-demo.git</developerConnection>
+        <url>http://github.com/killbill/killbill-invgrp-demo/tree/master</url>
     </scm>
     <issueManagement>
         <system>Github</system>
-        <url>https://github.com/killbill/killbill-invgrp-java-plugin/issues</url>
+        <url>https://github.com/killbill/killbill-invgrp-demo/issues</url>
     </issueManagement>
     <properties>
         <check.skip-dependency>true</check.skip-dependency>
