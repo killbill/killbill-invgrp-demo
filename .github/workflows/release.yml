@@ -22,6 +22,7 @@ env:
   KB_ADDRESS: 127.0.0.1
   KB_PORT: 8080
   PLUGIN_NAME: invgrp
+  DOCKER_COMPOSE_FILE: docker-compose.ci.mysql.yml
 
 jobs:
   release:
@@ -101,7 +102,7 @@ jobs:
           mkdir -p /var/tmp/tomcat_logs
           chmod ugo+rwx /var/tmp/tomcat_logs
           cd docker
-          docker-compose -p it -f docker-compose.ci.mysql.yml up --no-start
+          docker-compose -p it -f ${DOCKER_COMPOSE_FILE} up --no-start
           docker start it_db_1
       - name: Wait for MySQL
         run: |
@@ -122,7 +123,7 @@ jobs:
         run: |
           # Start all remaining containers
           cd docker
-          docker-compose -p it -f docker-compose.ci.mysql.yml up -d
+          docker-compose -p it -f ${DOCKER_COMPOSE_FILE} up -d
           count=0
           until $(curl --connect-timeout 10 --max-time 30 --output /dev/null --silent --fail http://${KB_ADDRESS}:${KB_PORT}/1.0/healthcheck); do
             if [[ "$count" == "180" ]]; then
