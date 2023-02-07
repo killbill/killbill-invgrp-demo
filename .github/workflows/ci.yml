@@ -14,4 +14,5 @@ jobs:
     with:
       plugin_name: 'invgrp'
       integration_tests_goal: 'test:plugins:invgrp'
-      integration_tests_ref: 'refs/heads/master'    
+      integration_tests_ref: 'refs/heads/master'  
+      test-goal: 'test verify'  
