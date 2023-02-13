@@ -10,7 +10,7 @@
     <parent>
         <groupId>org.kill-bill.billing</groupId>
         <artifactId>killbill-oss-parent</artifactId>
-        <version>0.146.6</version>
+        <version>0.146.7</version>
     </parent>
     <groupId>org.kill-bill.billing.plugin.java</groupId>
     <artifactId>invgrp-plugin</artifactId>
@@ -157,24 +157,6 @@
             <plugin>
                 <groupId>org.apache.felix</groupId>
                 <artifactId>maven-bundle-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-release-plugin</artifactId>
-                <version>3.0.0-M7</version>
-                <configuration>
-                    <releaseProfiles>${release.release-profiles}</releaseProfiles>
-                    <!-- See discussion at https://github.com/killbill/killbill-invgrp-demo/pull/4 -->
-                    <arguments>-P${release.release-profiles}</arguments>
-                    <autoVersionSubmodules>${release.auto-version-submodules}</autoVersionSubmodules>
-                    <mavenExecutorId>forked-path</mavenExecutorId>
-                    <pushChanges>${release.push-changes}</pushChanges>
-                    <localCheckout>true</localCheckout>
-                    <preparationGoals>${release.preparation-goals}</preparationGoals>
-                    <tagNameFormat>${release.tag-name-format}</tagNameFormat>
-                    <useReleaseProfile>false</useReleaseProfile>
-                    <goals>deploy</goals>
-                </configuration>
             </plugin>
         </plugins>
     </build>
