@@ -29,6 +29,8 @@ services:
       - KILLBILL_SERVER_TEST_MODE=true
       - KILLBILL_INVOICE_SANITY_SAFETY_BOUND_ENABLED=false
       - KILLBILL_INVOICE_MAX_DAILY_NUMBER_OF_ITEMS_SAFETY_BOUND=-1
+      - KB_org_killbill_server_lookupEnvironmentVariables=true
+      - KB_org_killbill_payment_method_overwrite=true      
     depends_on:
       - db
     volumes:
