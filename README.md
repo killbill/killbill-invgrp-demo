@@ -10,8 +10,11 @@ It is not meant to be used in production 'as-is'.
 -----------------------
 
 | Plugin version | Kill Bill version |
-| -------------: | ----------------: |
-| 1.x.y          | 0.24.z            |
+|---------------:|------------------:|
+|          1.x.y |            0.24.z |
+|          2.x.y |            0.26.z |
+
+In 2.x.x, the Java EE `javax` namespace is replaced by the `jakarta` namespace.
 
 
 ## Plugin Internals and Logic
