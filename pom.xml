@@ -21,11 +21,11 @@
     <parent>
         <groupId>org.kill-bill.billing</groupId>
         <artifactId>killbill-oss-parent</artifactId>
-        <version>0.146.63</version>
+        <version>0.147.20</version>
     </parent>
     <groupId>org.kill-bill.billing.plugin.java</groupId>
     <artifactId>invgrp-plugin</artifactId>
-    <version>1.0.9-SNAPSHOT</version>
+    <version>2.0.0-SNAPSHOT</version>
     <packaging>bundle</packaging>
     <name>Kill Bill OSGI Invoice Grouping Plugin</name>
     <description>Kill Bill OSGI Invoice Grouping Plugin</description>
@@ -41,13 +41,6 @@
         <url>https://github.com/killbill/killbill-invgrp-demo/issues</url>
     </issueManagement>
     <properties>
-        <check.skip-dependency>true</check.skip-dependency>
-        <check.skip-dependency-scope>true</check.skip-dependency-scope>
-        <check.skip-dependency-versions>true</check.skip-dependency-versions>
-        <check.skip-duplicate-finder>true</check.skip-duplicate-finder>
-        <check.skip-enforcer>true</check.skip-enforcer>
-        <check.skip-rat>true</check.skip-rat>
-        <check.skip-spotbugs>true</check.skip-spotbugs>
         <maven.javadoc.failOnError>false</maven.javadoc.failOnError>
         <osgi.private>org.killbill.billing.plugin.invgrp.*</osgi.private>
     </properties>
@@ -57,21 +50,25 @@
             <artifactId>jackson-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.google.code.findbugs</groupId>
-            <artifactId>jsr305</artifactId>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.google.inject</groupId>
-            <artifactId>guice</artifactId>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.annotation</groupId>
+            <artifactId>jakarta.annotation-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.inject</groupId>
+            <artifactId>jakarta.inject-api</artifactId>
         </dependency>
         <dependency>
             <groupId>jakarta.servlet</groupId>
             <artifactId>jakarta.servlet-api</artifactId>
             <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>javax.inject</groupId>
-            <artifactId>javax.inject</artifactId>
         </dependency>
         <dependency>
             <groupId>joda-time</groupId>
@@ -82,10 +79,6 @@
             <groupId>org.apache.felix</groupId>
             <artifactId>org.apache.felix.framework</artifactId>
             <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.jooby</groupId>
-            <artifactId>jooby</artifactId>
         </dependency>
         <dependency>
             <groupId>org.kill-bill.billing</groupId>
@@ -146,6 +139,10 @@
             <groupId>org.kill-bill.commons</groupId>
             <artifactId>killbill-clock</artifactId>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.kill-bill.commons</groupId>
+            <artifactId>killbill-jooby</artifactId>
         </dependency>
         <dependency>
             <groupId>org.kill-bill.commons</groupId>
