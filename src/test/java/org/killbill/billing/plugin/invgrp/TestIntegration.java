@@ -19,14 +19,14 @@ package org.killbill.billing.plugin.invgrp;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.time.LocalDate;
+import java.time.ZonedDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import org.joda.time.DateTime;
-import org.joda.time.LocalDate;
 import org.killbill.billing.catalog.api.BillingPeriod;
 import org.killbill.billing.catalog.api.Currency;
 import org.killbill.billing.catalog.api.PriceListSet;
@@ -63,7 +63,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.ImmutableMultimap;
 import com.google.common.io.Files;
 import com.google.common.io.Resources;
 
@@ -174,7 +173,7 @@ public class TestIntegration {
         }
 
         // Trigger an invoice run
-        final LocalDate targetDate = new LocalDate();
+        final LocalDate targetDate = LocalDate.now();
         final Invoices invoices = invoiceApi.createFutureInvoiceGroup(account.getAccountId(), targetDate, null, requestOptions.extend()
   																													.withQueryParamsForFollow(Map.of(JaxrsResource.QUERY_ACCOUNT_ID, List.of(account.getAccountId().toString())))
                                                                                                                         .withFollowLocation(true).build());
@@ -289,7 +288,7 @@ public class TestIntegration {
         input.setProductCategory(productCategory);
         input.setBillingPeriod(billingPeriod);
         input.setPriceList(PriceListSet.DEFAULT_PRICELIST_NAME);
-        final Subscription subscription = subscriptionApi.createSubscription(input, (DateTime) null, null, true, false, false, true, DEFAULT_WAIT_COMPLETION_TIMEOUT_SEC, properties, requestOptions);
+        final Subscription subscription = subscriptionApi.createSubscription(input, (ZonedDateTime) null, null, true, false, false, true, DEFAULT_WAIT_COMPLETION_TIMEOUT_SEC, properties, requestOptions);
         return subscription;
     }
 

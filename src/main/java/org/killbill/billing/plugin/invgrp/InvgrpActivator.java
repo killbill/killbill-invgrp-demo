@@ -19,8 +19,8 @@ package org.killbill.billing.plugin.invgrp;
 import java.util.Hashtable;
 import java.util.Properties;
 
-import javax.servlet.Servlet;
-import javax.servlet.http.HttpServlet;
+import jakarta.servlet.Servlet;
+import jakarta.servlet.http.HttpServlet;
 
 import org.killbill.billing.control.plugin.api.PaymentControlPluginApi;
 import org.killbill.billing.entitlement.plugin.api.EntitlementPluginApi;

@@ -17,7 +17,6 @@
 package org.killbill.billing.plugin.invgrp;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,7 +37,6 @@ import org.killbill.billing.plugin.api.invoice.PluginAdditionalItemsResult;
 import org.killbill.billing.plugin.api.invoice.PluginOnFailureInvoiceResult;
 import org.killbill.billing.plugin.api.invoice.PluginOnSuccessInvoiceResult;
 import org.killbill.billing.plugin.api.invoice.PluginPriorInvoiceResult;
-import org.killbill.billing.util.callcontext.CallContext;
 
 public class InvgrpInvoicePluginApi implements InvoicePluginApi {
 
