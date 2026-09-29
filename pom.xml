@@ -21,7 +21,7 @@
     <parent>
         <groupId>org.kill-bill.billing</groupId>
         <artifactId>killbill-oss-parent</artifactId>
-        <version>0.147.20</version>
+        <version>0.147.30</version>
     </parent>
     <groupId>org.kill-bill.billing.plugin.java</groupId>
     <artifactId>invgrp-plugin</artifactId>
@@ -29,12 +29,12 @@
     <packaging>bundle</packaging>
     <name>Kill Bill OSGI Invoice Grouping Plugin</name>
     <description>Kill Bill OSGI Invoice Grouping Plugin</description>
-    <url>http://github.com/killbill/killbill-invgrp-demo</url>
+    <url>https://github.com/killbill/killbill-invgrp-demo</url>
     <scm>
         <connection>scm:git:git://github.com/killbill/killbill-invgrp-demo.git</connection>
         <developerConnection>scm:git:git@github.com:killbill/killbill-invgrp-demo.git</developerConnection>
         <tag>HEAD</tag>
-        <url>http://github.com/killbill/killbill-invgrp-demo/tree/master</url>
+        <url>https://github.com/killbill/killbill-invgrp-demo/tree/master</url>
     </scm>
     <issueManagement>
         <system>Github</system>
@@ -43,6 +43,7 @@
     <properties>
         <maven.javadoc.failOnError>false</maven.javadoc.failOnError>
         <osgi.private>org.killbill.billing.plugin.invgrp.*</osgi.private>
+        <repository.cloudsmith.repo>killbill-invgrp-demo</repository.cloudsmith.repo>
     </properties>
     <dependencies>
         <dependency>
