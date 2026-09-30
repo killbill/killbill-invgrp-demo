@@ -16,7 +16,6 @@
 
 package org.killbill.billing.plugin.invgrp;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.StreamSupport;
